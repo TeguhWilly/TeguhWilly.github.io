@@ -1,0 +1,201 @@
+<!Doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CHAT WhatsApp</title>
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.5.0/litera/bootstrap.min.css" rel="stylesheet"
+        type="text/css">
+    <style>
+        body {
+            background-color: dodgerblue;
+            background-image: url(images/welcomebro.jpg);
+            background-attachment: fixed;
+            background-position: right;
+            background-position-x: right;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            margin-top: 5%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="card w-100">
+                    <div class="card-body">
+                        <h4 class="card-title">IT Case Study</h4>
+                        <h6 class="card-subtitle mb-2 text-muted">CHAT WhatsApp</h6>
+                        <br>
+                        Silakan input disini: <br><br>
+                        <form action="https://api.WhatsApp.com/send?" method="GET" id="my-test">
+                            <div class="form-group">
+                                <input type="text" id="phone=" name="phone" sf="numbers" maxlength="12"
+                                    class="form-control notelp" onkeypress="return isNumberKey(event)"
+                                    placeholder="Hanya nomor" />
+                                <br>
+                                <button type="submit" onclick="get_nomor()" class="tombol btn btn-info" id="submit"
+                                    disabled="disabled">Mulai
+                                    Chat</button>
+                            </div>
+                        </form>
+                        <br>
+                        <p class="card-text">
+                            Cara penggunaan ITCS App:<br>
+                            1. Ketik nomor HP tujuan. <br> 2. Tekan tombol Mulai Chat. </p>
+                        <br>
+                        <p style="font-size: 10pt;">Ketentuan:<br><i>*Mempunyai akun WhatsApp untuk chat nomor HP
+                                tujuan.</i></p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+    //Alert Feedback
+    function get_nomor() {
+        var nomor_anda = document.getElementById('phone=').value;
+        if (nomor_anda == "") {
+            alert("Nomor anda : " + nomor_anda);
+        } 
+    }
+
+    $(document).ready(function () {
+        // executes when HTML-Document is loaded and DOM is ready
+        console.log("document is ready");
+
+        //Bayangan Card
+        $(".card").hover(
+            function () {
+                $(this).addClass('shadow-lg').css('cursor', 'pointer');
+            }, function () {
+                $(this).removeClass('shadow-lg');
+            }
+        );
+    });
+
+    //Membuat daftar nomor kartu
+    //kumpulan array nomor 
+    var telkomsel = ["0812", "0813", "0821", "0822", "0852", "0853", "0823", "0851"];
+    var indosat = ["0814", "0815", "0816", "0855", "0856", "0857", "0858"];
+    var three = ["0895", "0896", "0897", "0898", "0899"];
+    var smartfren = ["0881", "0882", "0883", "0884", "0885", "0886", "0887", "0888", "0889"];
+    var xl = ["0817", "0818", "0819", "0859", "0877", "0878"];
+    var axis = ["0838", "0831", "0832", "0833"];
+    //kumpulan array nomor bisa diedit sendiri
+
+    $(document).on('keyup', '.notelp', ceknomor);//fungsi ceknomor dipanggil saat memasukkan input
+
+    function ceknomor() {
+        $('.errtelp').empty();
+        var ambilno = $('.notelp').val();
+        var panjangno = ambilno.length;
+        var t;
+        if (panjangno >= 4 && panjangno <= 12) {//kondisi dimana panjang no hp harus 10 samapi 12 karakter selain itu di block elsenya baris 88
+            t = ambilno.substring(0, 4);
+            //proses pengecekan masing-masing array no
+            var a = telkomsel.length;
+            var b = 0;
+            var kondisi = true;
+            //bukannomor=true;
+            while (b < a) {
+                if (telkomsel[b] == t) {
+                    $('.notelp').css({ "background-image": "url(images/kartu/telkomsel.png)" }).css({ "background-repeat": "no-repeat" }).css({ "background-position-x": "right" });
+
+                    kondisi = false;
+                } ++b;
+            }
+            //jika menemukan salah satu nomor dari didalam array, maka tidak akan mengecek array lainnya indikatornya adalah variable kondisi
+            a = indosat.length;
+            b = 0;
+            while (b < a && kondisi) {
+                if (indosat[b] == t) {
+                    $('.notelp').css({ "background-image": "url(images/kartu/indosat.png)" }).css({ "background-repeat": "no-repeat" }).css({ "background-position-x": "right" });//menampilkan logo operator
+                    kondisi = false;
+                } ++b;
+            }
+
+            a = three.length;
+            b = 0;
+            while (b < a && kondisi) {
+                if (three[b] == t) {
+                    $('.notelp').css({ "background-image": "url(images/kartu/three.png)" }).css({ "background-repeat": "no-repeat" }).css({ "background-position-x": "right" });
+                    kondisi = false;
+                } ++b;
+            }
+            a = smartfren.length;
+            b = 0;
+            while (b < a && kondisi) {
+                if (smartfren[b] == t) {
+                    $('.notelp').css({ "background-image": "url(images/kartu/smartfren.png)" }).css({ "background-repeat": "no-repeat" }).css({ "background-position-x": "right" });
+                    kondisi = false;
+                } ++b;
+            }
+            a = xl.length;
+            b = 0;
+            while (b < a && kondisi) {
+                if (xl[b] == t) {
+                    $('.notelp').css({ "background-image": "url(images/kartu/xl1.png)" }).css({ "background-repeat": "no-repeat" }).css({ "background-position-x": "right" });
+                    kondisi = false;
+                } ++b;
+            }
+            a = axis.length;
+            b = 0;
+            while (b < a && kondisi) {
+                if (axis[b] == t) {
+                    $('.notelp').css({ "background-image": "url(images/kartu/axis.png)" }).css({ "background-repeat": "no-repeat" }).css({ "background-position-x": "right" });
+                    kondisi = false;
+                } ++b;
+            }
+            //proses pengecekan masing-masing array no berakhir
+
+            //Kondisi dimana jika nomor tidak ditemukan atau nomor terlalu panjang
+            if (kondisi) {
+                blocktombol();
+                gambaroperatorhilang();
+            } else if (panjangno >= 10 && panjangno <= 12) {
+                bukablocktombol();
+            } else {
+                blocktombol();
+            }
+        } else {
+            blocktombol();
+            gambaroperatorhilang();
+        }
+    }
+    //fungsi sesuai namanya 
+    function blocktombol() {
+        $('.tombol').prop("disabled", true);
+    }
+    function bukablocktombol() {
+        $('.tombol').prop("disabled", false);
+    }
+    function gambaroperatorhilang() {
+        $('.notelp').css({ "background-image": "url()" });
+    }
+
+    function isNumberKey(evt)//fungsi block, untuk tidak boleh memesukkan input selain angka, fungsi dipanggil pada htm di onkeypress
+    {
+        var kodeASCII = (evt.which) ? evt.which : event.keyCode
+        if (kodeASCII > 31 && (kodeASCII < 48 || kodeASCII > 57)) {
+            return false;
+        }
+        return true;
+    }
+
+</script>
+
+</html>
